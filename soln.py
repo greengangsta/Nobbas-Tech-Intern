@@ -95,10 +95,12 @@ classifier1.fit(X_train,y_train)
 y_pred = classifier1.predict(X_test)
 
 # Making the confusion matrix
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, classification_report, confusion_matrix
 cm = confusion_matrix(y_test,y_pred)
-
-
+print(f1_score(y_test, y_pred, average="macro"))
+print(precision_score(y_test, y_pred, average="macro"))
+print(recall_score(y_test, y_pred, average="macro")) 
+print(accuracy_score(y_test, y_pred))
  
 
 
