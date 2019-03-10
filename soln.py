@@ -17,7 +17,8 @@ X3 = pd.read_csv('CSV 3.csv')
 y = X.iloc[:,-1].values
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 le = LabelEncoder()
-y[:]=  np.array(le.fit_transform(y[:]))
+y[:]=le.fit_transform(y[:])
+y=y.astype(int)
 
 ### Pre-processing the data ###
 
@@ -36,7 +37,7 @@ Xt[:,15:17] = imputer.transform(Xt[:,15:17])
 imputer = imputer.fit(Xt[:,13:14])
 Xt[:,13:14] = imputer.transform(Xt[:,13:14])
 
-# Geo-coding for the latitude and longitude sadly I don't have an api key
+# Geo-coding for the latitude and longitude sadly I don't have an api key hence i'm imputing the latitude and longitude
 """
 from geopy import geocoders
 api_key = 'AIzaSyBXkATWIrQyNX6T-VRa2gRmC9dJRoqzss0'
@@ -87,6 +88,15 @@ sc_X = StandardScaler()
 X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test)
 
+# Training and prediction
+from sklearn.svm import SVC
+classifier1 = SVC(kernel='linear')
+classifier1.fit(X_train,y_train)
+y_pred = classifier1.predict(X_test)
+
+# Making the confusion matrix
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(y_test,y_pred)
 
 
  
