@@ -68,9 +68,18 @@ Xt[:,19]=  le.fit_transform(Xt[:,19])
 Xt[:,20]=  le.fit_transform(Xt[:,20])
 Xt[:,21]=  le.fit_transform(Xt[:,21])
 
+#Dropping the description column 
+Xt = np.delete(Xt,8,1)
+Xt = np.delete(Xt,23,1)
+print(Xt[1,:])
 
-#Dropping the description column
-Xt[:,8]=  le.fit_transform(Xt[:,8])
+# onehot encoding some of the important categorical features
+onehotencoder = OneHotEncoder(categorical_features =[1,4,14,17,18,19])
+Xt= onehotencoder.fit_transform(Xt).toarray()
+
+# Splitting the dataset into train and test data
+from sklearn.cross_validation import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(Xt, y, test_size = 0.2, random_state = 0)
 
 
  
