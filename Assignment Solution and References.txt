@@ -1,0 +1,42 @@
+Assignment :
+
+
+1.a. The classification performed using Support Vector Classification to predict the grade of the property seems to be achievable.
+We tried to evaluate the grade by removing it from the dataset and training a machine learning model to predict the grade from given
+rest of the imput data .
+I got the following metrics :
+Classification model metrics : 
+1.F1 score =  0.8548510797529696
+2.Precision score =  0.8555864540847855
+3.Recall score =  0.8544546850998463
+4.Accuracy score =  0.8555555555555555
+
+1.b.In the next part I tried if I can predict the house prices given the rest of the data. To me this seemed unachievable at the moment.
+Maybe because the data was too much categorical and the no of training examples were very less. Also I dropped the description column which
+contained really valuable information like View,Pool etc. . I think Natural Language Processig would have helped. The latitude and longitude 
+values could have helped. Also a lot of features were very sparse it was quite tough to handle the missing data. Like we couldn't drop the train-
+ing examples as they were already very less. The RMSE was much higher seems something or everything went wrong.
+I got the following metrics for price prediction :
+Regression Model Metrics : 
+1.RMSE =  10799575.503082532
+
+
+2.Programmed the machine learning model in python and uploaded to github repository
+Github Link : https://github.com/greengangsta/Nobbas-Tech-Intern
+
+3.a. Some more data like the crime rate in that locality, average people's income , availability of hospital,schools,shooping complexes nearby ,road
+and highway connectivity , airport distance etc would be much promising data to help evaluate the model more accurately.
+
+3.b. If I get the data I would like to built it through a deep learning approach . As I mentioned earlier the description consisted very valuable
+information which I did not take into account because of the extensive computation requirements . Natural Language Processing for such models can 
+help upto a great extent.
+
+
+
+References : 
+
+Feature engineering and feature Selection : https://medium.com/open-machine-learning-course/open-machine-learning-course-topic-6-feature-engineering-and-feature-selection-8b94f870706a
+Handling Missing Data : https://towardsdatascience.com/how-to-handle-missing-data-8646b18db0d4
+Geocoding for latitude and longitude : https://stackoverflow.com/questions/42445299/geocoder-service-error-in-python
+SVM related reading  http://dataaspirant.com/2017/01/25/svm-classifier-implemenation-python-scikit-learn/
+MOOC link from which I have learned to code : https://www.udemy.com/machinelearning/

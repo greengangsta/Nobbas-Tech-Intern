@@ -24,9 +24,9 @@ prices = X.iloc[:,13].values
 ### Pre-processing the data ###
 
 #Filling the missing values
-X['stateOrProvince']=X['stateOrProvince'].fillna('U')
+X['stateOrProvince']=X['stateOrProvince'].fillna('U')  #For unknown string values used 'U'
 X['unitNumber']=X['unitNumber'].fillna('U')
-X['geocodioAccuracyScore'] = X['geocodioAccuracyScore'].fillna(-1)
+X['geocodioAccuracyScore'] = X['geocodioAccuracyScore'].fillna(-1) # For unknown numerical values used -1
 X['numParkingSpaces']=X['numParkingSpaces'].fillna(-1)
 
 #Imputing the missing values with mean
@@ -76,8 +76,6 @@ Xt = np.delete(Xt,8,1) # we will Xt to train the classification model
 Xpt = np.delete(Xt,11,1) # we will use Xpt to train the regression model
 # Dropping the grade column for the classification model
 Xt = np.delete(Xt,23,1)
-print(Xt[1,:])
-print(Xpt[1,:])
 
 
 # onehot encoding some of the important categorical features (although most of the features are categorcal still we used only few colums to avoid the curse of dimensionality)
@@ -110,13 +108,14 @@ classifier1 = SVC(kernel='linear')
 classifier1.fit(X_train,y_train)
 y_pred = classifier1.predict(X_test)
 
-# Making the confusion matrix
+# Making the confusion matrix and evaluating the metrics
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, classification_report, confusion_matrix
 cm = confusion_matrix(y_test,y_pred)
-print(f1_score(y_test, y_pred, average="macro"))
-print(precision_score(y_test, y_pred, average="macro"))
-print(recall_score(y_test, y_pred, average="macro")) 
-print(accuracy_score(y_test, y_pred))
+print('Classification model metrics : ')
+print('1.F1 score = ',f1_score(y_test, y_pred, average="macro"))
+print('2.Precision score = ',precision_score(y_test, y_pred, average="macro"))
+print('3.Recall score = ',recall_score(y_test, y_pred, average="macro")) 
+print('4.Accuracy score = ',accuracy_score(y_test, y_pred))
 
  
 # Regression model for price prediction
@@ -131,6 +130,8 @@ yp_pred = regressor.predict(Xp_test)
 from sklearn.metrics import mean_squared_error
 from math import sqrt
 rms = sqrt(mean_squared_error(yp_test, yp_pred))
+print('Regression Model Metrics : ')
+print('1.RMSE = ',rms) 
 
 
 
