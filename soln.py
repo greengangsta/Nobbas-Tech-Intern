@@ -3,7 +3,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from geopy import geocoders 
+ 
 
 
 ### Loading the dataset ###
@@ -35,6 +35,26 @@ imputer = imputer.fit(Xt[:,15:17])
 Xt[:,15:17] = imputer.transform(Xt[:,15:17])
 imputer = imputer.fit(Xt[:,13:14])
 Xt[:,13:14] = imputer.transform(Xt[:,13:14])
+
+# Geo-coding for the latitude and longitude sadly I don't have an api key
+"""
+from geopy import geocoders
+api_key = 'AIzaSyBXkATWIrQyNX6T-VRa2gRmC9dJRoqzss0'
+g = geocoders.GoogleV3(api_key=api_key) 
+location = Xt[:,2] +', '+ Xt[:,0] +  ', ' + Xt[:,1] 
+for loc in location :
+ try:
+    place, (lat, lng) = g.geocode(loc)
+ except ValueError as error_message:
+    print("Error: geocode failed on input %s with message %s" % (location, error_message))
+ print (place, lat, lng)
+
+"""
+imputer = imputer.fit(Xt[:,10:12])
+Xt[:,10:12]= imputer.transform(Xt[:,10:12])
+ 
+
+
 
 
 
