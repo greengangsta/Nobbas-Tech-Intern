@@ -52,6 +52,27 @@ for loc in location :
 """
 imputer = imputer.fit(Xt[:,10:12])
 Xt[:,10:12]= imputer.transform(Xt[:,10:12])
+
+# Label Encoding
+Xt[:,0]=  le.fit_transform(Xt[:,0])
+Xt[:,1]=  le.fit_transform(Xt[:,1])
+Xt[:,2]=  le.fit_transform(Xt[:,2])
+Xt[:,3]=  le.fit_transform(Xt[:,3])
+Xt[:,4]=  le.fit_transform(Xt[:,4])
+Xt[:,5]=  le.fit_transform(Xt[:,5])
+Xt[:,9]=  le.fit_transform(Xt[:,9])
+Xt[:,14]=  le.fit_transform(Xt[:,14])
+Xt[:,17]=  le.fit_transform(Xt[:,17])
+Xt[:,18]=  le.fit_transform(Xt[:,18])
+Xt[:,19]=  le.fit_transform(Xt[:,19])
+Xt[:,20]=  le.fit_transform(Xt[:,20])
+Xt[:,21]=  le.fit_transform(Xt[:,21])
+
+
+#Dropping the description column
+Xt[:,8]=  le.fit_transform(Xt[:,8])
+
+
  
 
 
