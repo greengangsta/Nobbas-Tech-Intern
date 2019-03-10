@@ -1,0 +1,5 @@
+Feature engineering and feature Selection : https://medium.com/open-machine-learning-course/open-machine-learning-course-topic-6-feature-engineering-and-feature-selection-8b94f870706a
+Handling Missing Data : https://towardsdatascience.com/how-to-handle-missing-data-8646b18db0d4
+Geocoding for latitude and longitude : https://stackoverflow.com/questions/42445299/geocoder-service-error-in-python
+SVM related reading  http://dataaspirant.com/2017/01/25/svm-classifier-implemenation-python-scikit-learn/
+MOOC link from which I have learned to code : https://www.udemy.com/machinelearning/

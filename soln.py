@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 X = pd.read_csv('CSV 1.csv')
 X2 = pd.read_csv('CSV 2.csv')
 X3 = pd.read_csv('CSV 3.csv')
-
+#We do not use X2 or X3 beacuse all the values were simply 0 so they won't be very helpful
 
 #Selecting the grade feature as the ground-truth
 y = X.iloc[:,-1].values
@@ -70,15 +70,17 @@ Xt[:,19]=  le.fit_transform(Xt[:,19])
 Xt[:,20]=  le.fit_transform(Xt[:,20])
 Xt[:,21]=  le.fit_transform(Xt[:,21])
 
-#Dropping the description column 
-Xt = np.delete(Xt,8,1)
-Xpt = np.delete(Xt,11,1)
+# Dropping the description column 
+Xt = np.delete(Xt,8,1) # we will Xt to train the classification model
+# Dropping the price column for the regression model
+Xpt = np.delete(Xt,11,1) # we will use Xpt to train the regression model
+# Dropping the grade column for the classification model
 Xt = np.delete(Xt,23,1)
 print(Xt[1,:])
 print(Xpt[1,:])
 
 
-# onehot encoding some of the important categorical features
+# onehot encoding some of the important categorical features (although most of the features are categorcal still we used only few colums to avoid the curse of dimensionality)
 onehotencoder = OneHotEncoder(categorical_features =[1,4,14,17,18,19])
 Xt= onehotencoder.fit_transform(Xt).toarray()
 onehotencoder = OneHotEncoder(categorical_features =[1,4,13,16,17,18])
@@ -93,7 +95,7 @@ X_train, X_test, y_train, y_test = train_test_split(Xt, y, test_size = 0.2, rand
 Xp_train, Xp_test, yp_train, yp_test = train_test_split(Xpt, prices, test_size = 0.2, random_state = 0)
 
 
-# Scaling the dataset
+# Scaling the dataset to bring all the fetures with mean 0 and standard deviation between 0-1
 from sklearn.preprocessing import StandardScaler
 sc_X = StandardScaler()
 X_train = sc_X.fit_transform(X_train)
@@ -103,7 +105,7 @@ Xp_test = sc_X.transform(Xp_test)
 
 
 # Training and prediction for the grade classification
-from sklearn.svm import SVC
+from sklearn.svm import SVC   # Support Vector Classification using linear kernel
 classifier1 = SVC(kernel='linear')
 classifier1.fit(X_train,y_train)
 y_pred = classifier1.predict(X_test)
@@ -120,7 +122,7 @@ print(accuracy_score(y_test, y_pred))
 # Regression model for price prediction
 yp_train = yp_train.astype(int)
 yp_test = yp_test.astype(int)
-from sklearn.svm import SVR
+from sklearn.svm import SVR #Support Vector Regression using rbf kernel
 regressor = SVR(kernel='rbf')
 regressor.fit(Xp_train,yp_train)
 yp_pred = regressor.predict(Xp_test)
