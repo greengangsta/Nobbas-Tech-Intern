@@ -19,6 +19,7 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 le = LabelEncoder()
 y[:]=le.fit_transform(y[:])
 y=y.astype(int)
+prices = X.iloc[:,13].values
 
 ### Pre-processing the data ###
 
@@ -71,24 +72,37 @@ Xt[:,21]=  le.fit_transform(Xt[:,21])
 
 #Dropping the description column 
 Xt = np.delete(Xt,8,1)
+Xpt = np.delete(Xt,11,1)
 Xt = np.delete(Xt,23,1)
 print(Xt[1,:])
+print(Xpt[1,:])
+
 
 # onehot encoding some of the important categorical features
 onehotencoder = OneHotEncoder(categorical_features =[1,4,14,17,18,19])
 Xt= onehotencoder.fit_transform(Xt).toarray()
+onehotencoder = OneHotEncoder(categorical_features =[1,4,13,16,17,18])
+Xpt = onehotencoder.fit_transform(Xpt).toarray()
+
+
+### Building the machine learning models ###
 
 # Splitting the dataset into train and test data
 from sklearn.cross_validation import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(Xt, y, test_size = 0.2, random_state = 0)
+Xp_train, Xp_test, yp_train, yp_test = train_test_split(Xpt, prices, test_size = 0.2, random_state = 0)
+
 
 # Scaling the dataset
 from sklearn.preprocessing import StandardScaler
 sc_X = StandardScaler()
 X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test)
+Xp_train = sc_X.fit_transform(Xp_train)
+Xp_test = sc_X.transform(Xp_test)
 
-# Training and prediction
+
+# Training and prediction for the grade classification
 from sklearn.svm import SVC
 classifier1 = SVC(kernel='linear')
 classifier1.fit(X_train,y_train)
@@ -101,8 +115,20 @@ print(f1_score(y_test, y_pred, average="macro"))
 print(precision_score(y_test, y_pred, average="macro"))
 print(recall_score(y_test, y_pred, average="macro")) 
 print(accuracy_score(y_test, y_pred))
- 
 
+ 
+# Regression model for price prediction
+yp_train = yp_train.astype(int)
+yp_test = yp_test.astype(int)
+from sklearn.svm import SVR
+regressor = SVR(kernel='rbf')
+regressor.fit(Xp_train,yp_train)
+yp_pred = regressor.predict(Xp_test)
+
+# Calculating the rmse
+from sklearn.metrics import mean_squared_error
+from math import sqrt
+rms = sqrt(mean_squared_error(yp_test, yp_pred))
 
 
 
